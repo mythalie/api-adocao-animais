@@ -4,6 +4,7 @@ import br.com.iteris.adocao.animaisapi.controller.domain.dto.AnimalCreateRequest
 import br.com.iteris.adocao.animaisapi.controller.domain.dto.AnimalResponse;
 import br.com.iteris.adocao.animaisapi.controller.domain.dto.AnimalUpdateRequest;
 import br.com.iteris.adocao.animaisapi.service.AnimalService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

@@ -4,6 +4,7 @@ import br.com.iteris.adocao.animaisapi.controller.domain.dto.AnimalCreateRequest
 import br.com.iteris.adocao.animaisapi.controller.domain.dto.AnimalResponse;
 import br.com.iteris.adocao.animaisapi.controller.domain.dto.AnimalUpdateRequest;
 import br.com.iteris.adocao.animaisapi.controller.domain.entity.Animal;
+import br.com.iteris.adocao.animaisapi.exception.AnimalNaoEncontradoException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -15,6 +16,15 @@ public class AnimalService {
 
     private List<Animal> listaDeAnimais;
     private static int proximoId = 1;
+
+    private static List<String> especie() {
+        List<String> especies = new ArrayList<String>();
+        especies.add("Cachorro");
+        especies.add("Gato");
+        especies.add("Coelho");
+        especies.add("Capivara");
+        return especies;
+    }
 
     public AnimalService() {
         if (listaDeAnimais == null) {
@@ -46,15 +56,6 @@ public class AnimalService {
         return animalResponse;
     }
 
-    public List<String> especie() {
-        List<String> especies = new ArrayList<String>();
-        especies.add("Cachorro");
-        especies.add("Gato");
-        especies.add("Coelho");
-        especies.add("Capivara");
-        return especies;
-    }
-
     public List<AnimalResponse> listarTodos() {
         List<AnimalResponse> responseList = new ArrayList<AnimalResponse>();
         for (Animal a : listaDeAnimais) {
@@ -71,7 +72,7 @@ public class AnimalService {
                 );
             }
         }
-        throw new IllegalArgumentException("ID não encontrado");
+        throw new AnimalNaoEncontradoException();
     }
 
     public AnimalResponse editarAnimal (Integer idAnimal, AnimalUpdateRequest updateRequest) {

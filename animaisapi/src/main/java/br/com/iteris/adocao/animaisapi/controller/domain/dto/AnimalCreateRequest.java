@@ -23,7 +23,7 @@ public class AnimalCreateRequest {
     private String especie;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    @Past(message = "A data deve ser igual ou anterior a data de hoje")
+    @Past(message = "A data deve ser igual ou anterior a data de hoje!")
     private LocalDate dataNascimento;
 
     @Range(min = 1, max = 5)
@@ -32,6 +32,6 @@ public class AnimalCreateRequest {
     @Range(min = 1, max = 5)
     private Integer nivelCarinho;
 
-    @Email
+    @Email(message = "Digite um e-mail válido!")
     private String email;
 }

@@ -8,7 +8,6 @@ import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
-// response(resposta) responsável por trazer as informações que eu quero
 public class AnimalResponse {
     private int idAnimal;
     private String nome;
