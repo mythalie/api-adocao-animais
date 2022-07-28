@@ -7,12 +7,12 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 @Data
-@NoArgsConstructor // irá gerar um construtor sem parâmetros
-@AllArgsConstructor // gera um construtor com 1 parâmetro para cada campo em sua classe
+@NoArgsConstructor
+@AllArgsConstructor
 public class Animal {
     private int idAnimal;
     private String nome;
-    private int idade;
+    private Integer idade;
     private String especie;
     private LocalDate dataNascimento;
     private Integer nivelFofura;

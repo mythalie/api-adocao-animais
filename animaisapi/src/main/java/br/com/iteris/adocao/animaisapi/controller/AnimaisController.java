@@ -2,6 +2,7 @@ package br.com.iteris.adocao.animaisapi.controller;
 
 import br.com.iteris.adocao.animaisapi.controller.domain.dto.AnimalCreateRequest;
 import br.com.iteris.adocao.animaisapi.controller.domain.dto.AnimalResponse;
+import br.com.iteris.adocao.animaisapi.controller.domain.dto.AnimalUpdateRequest;
 import br.com.iteris.adocao.animaisapi.service.AnimalService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,5 +32,16 @@ public class AnimaisController {
     @PostMapping(value = "api/animais")
     public ResponseEntity<AnimalResponse> cadastrarAnimal(@RequestBody @Valid AnimalCreateRequest createRequest) {
         return ResponseEntity.ok(animalService.cadastrarAnimal(createRequest));
+    }
+
+    @PutMapping(value = "api/animais/{id}")
+    public ResponseEntity<AnimalResponse> editarAnimal(@PathVariable Integer id, @RequestBody @Valid AnimalUpdateRequest updateRequest) {
+        var animal = animalService.editarAnimal(id, updateRequest);
+        return ResponseEntity.ok(animal);
+    }
+
+    @DeleteMapping(value = "api/animais/{id}")
+    public ResponseEntity<AnimalResponse> deletarAnimal(@PathVariable Integer id) {
+        return ResponseEntity.ok(animalService.deletarAnimal(id));
     }
 }

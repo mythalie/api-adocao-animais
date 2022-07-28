@@ -2,6 +2,7 @@ package br.com.iteris.adocao.animaisapi.service;
 
 import br.com.iteris.adocao.animaisapi.controller.domain.dto.AnimalCreateRequest;
 import br.com.iteris.adocao.animaisapi.controller.domain.dto.AnimalResponse;
+import br.com.iteris.adocao.animaisapi.controller.domain.dto.AnimalUpdateRequest;
 import br.com.iteris.adocao.animaisapi.controller.domain.entity.Animal;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +27,7 @@ public class AnimalService {
 
     public AnimalResponse cadastrarAnimal(AnimalCreateRequest createRequest) {
 
-        if (!createRequest.getEspecie().equalsIgnoreCase("Cachorro") && !createRequest.getEspecie().equalsIgnoreCase("Gato")
-                && !createRequest.getEspecie().equalsIgnoreCase("Coelho") && !createRequest.getEspecie().equalsIgnoreCase("Capivara")) {
+        if (!especie().contains(createRequest.getEspecie())) {
             throw new IllegalArgumentException("Somente será possível as espécies: Cachorro, Gato, Coelho e Capivara.");
         }
 
@@ -46,6 +46,15 @@ public class AnimalService {
         return animalResponse;
     }
 
+    public List<String> especie() {
+        List<String> especies = new ArrayList<String>();
+        especies.add("Cachorro");
+        especies.add("Gato");
+        especies.add("Coelho");
+        especies.add("Capivara");
+        return especies;
+    }
+
     public List<AnimalResponse> listarTodos() {
         List<AnimalResponse> responseList = new ArrayList<AnimalResponse>();
         for (Animal a : listaDeAnimais) {
@@ -55,12 +64,6 @@ public class AnimalService {
     }
 
     public AnimalResponse buscarId (Integer idAnimal) {
-
-//        listaDeAnimais.forEach(animal -> {
-//            animal.getIdAnimal();
-//        });
-
-        // pra cada elemento da minha lista de animais, eu tenho um animal.
         for (Animal animal : listaDeAnimais) {
             if(animal.getIdAnimal() == idAnimal) {
                 return new AnimalResponse(
@@ -71,4 +74,28 @@ public class AnimalService {
         throw new IllegalArgumentException("ID não encontrado");
     }
 
+    public AnimalResponse editarAnimal (Integer idAnimal, AnimalUpdateRequest updateRequest) {
+        for (Animal animal : listaDeAnimais) {
+            if(animal.getIdAnimal() == idAnimal) {
+                animal.setNome(updateRequest.getNome());
+                animal.setIdade(updateRequest.getIdade());
+                animal.setEspecie(updateRequest.getEspecie());
+                animal.setNivelFofura(updateRequest.getNivelFofura());
+                animal.setNivelCarinho(updateRequest.getNivelCarinho());
+                animal.setEmail(updateRequest.getEmail());
+                return new AnimalResponse(animal);
+            }
+        }
+        throw new IllegalArgumentException("Animal não encontrado!");
+    }
+
+    public AnimalResponse deletarAnimal (Integer idAnimal) {
+        for (Animal animal : listaDeAnimais) {
+            if (animal.getIdAnimal() == idAnimal) {
+                listaDeAnimais.remove(animal);
+                return new AnimalResponse(animal);
+            }
+        }
+        throw new IllegalArgumentException("Animal não encontrado!");
+    }
 }

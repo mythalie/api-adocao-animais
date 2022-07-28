@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.hibernate.validator.constraints.Range;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
-import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Data
@@ -17,7 +17,7 @@ public class AnimalCreateRequest {
     private String nome;
 
     @NotNull(message = "Idade obrigatória!")
-    private int idade;
+    private Integer idade;
 
     @NotEmpty(message = "Espécie obrigatória!")
     private String especie;
@@ -32,5 +32,6 @@ public class AnimalCreateRequest {
     @Range(min = 1, max = 5)
     private Integer nivelCarinho;
 
+    @Email
     private String email;
 }
